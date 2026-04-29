@@ -1,0 +1,65 @@
+﻿<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Dev Points Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>GitHub Dev Points</h1>
+      <p class="subtitle">目標門檻：7 分（總分 15）</p>
+
+      {% if error %}
+      <div class="alert error">{{ error }}</div>
+      {% endif %}
+
+      {% if not result %}
+      <section class="card">
+        <p>登入 GitHub 後，系統會依照四個維度計算你的 Dev Points。</p>
+        <ul>
+          <li>Account age: 0.5 pt/month (max 6)</li>
+          <li>Public commits (last 90 days): 0.1 pt each (max 3)</li>
+          <li>Original repos (public, non-empty): 0.5 pt each (max 1)</li>
+          <li>Stars on original repos: 0.1 pt each (max 5)</li>
+        </ul>
+        <a class="btn" href="{{ url_for('login') }}">使用 GitHub 授權登入</a>
+      </section>
+      {% else %}
+      <section class="card">
+        <div class="profile">
+          <img src="{{ result.avatar_url }}" alt="avatar" />
+          <div>
+            <h2>{{ result.username }}</h2>
+            <a href="{{ result.profile_url }}" target="_blank" rel="noreferrer">查看 GitHub Profile</a>
+          </div>
+        </div>
+
+        <div class="score-total {% if result.score.passed %}pass{% else %}fail{% endif %}">
+          <strong>{{ result.score.total }} / 15.0</strong>
+          <span>{% if result.score.passed %}已達到 7 分門檻{% else %}尚未達到 7 分門檻{% endif %}</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>項目</th><th>數值</th><th>得分</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Account age</td><td>{{ result.months_old }} 個月</td><td>{{ result.score.age }} / 6</td></tr>
+            <tr><td>Public commits (90 days)</td><td>{{ result.commit_count_90d }}</td><td>{{ result.score.commits }} / 3</td></tr>
+            <tr><td>Original repos</td><td>{{ result.original_repos_count }}</td><td>{{ result.score.repos }} / 1</td></tr>
+            <tr><td>Stars on original repos</td><td>{{ result.total_stars }}</td><td>{{ result.score.stars }} / 5</td></tr>
+          </tbody>
+        </table>
+
+        <div class="actions">
+          <a class="btn secondary" href="{{ url_for('index') }}">重新計算</a>
+          <a class="btn danger" href="{{ url_for('logout') }}">登出</a>
+        </div>
+      </section>
+      {% endif %}
+    </main>
+  </body>
+</html>
+

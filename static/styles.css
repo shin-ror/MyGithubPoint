@@ -1,0 +1,122 @@
+﻿:root {
+  --bg1: #f4f7fb;
+  --bg2: #e8eef8;
+  --card: #ffffff;
+  --text: #1f2a37;
+  --muted: #5b6777;
+  --ok: #127a4b;
+  --bad: #9f1239;
+  --line: #d5deeb;
+  --accent: #0b5fff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+h1 { margin-bottom: 4px; }
+.subtitle { margin-top: 0; color: var(--muted); }
+
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(40, 70, 110, 0.12);
+}
+
+.alert.error {
+  margin-bottom: 16px;
+  background: #fde7ef;
+  border: 1px solid #f6bfd1;
+  color: #84133d;
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+ul { padding-left: 18px; color: var(--muted); }
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.btn.secondary { background: #2f3d56; }
+.btn.danger { background: #b4234f; }
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.profile img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.profile h2 { margin: 0 0 4px 0; }
+
+.score-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.score-total.pass {
+  background: #e5f6ee;
+  color: var(--ok);
+}
+
+.score-total.fail {
+  background: #fbe7ee;
+  color: var(--bad);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px 6px;
+  text-align: left;
+}
+
+.actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .score-total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}
+
